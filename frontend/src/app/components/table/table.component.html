@@ -1,0 +1,47 @@
+
+    <form class="example-form">
+      Empleados:  
+      <mat-form-field style="flex-direction: row-reverse" appearance="fill" floatLabel="never">
+        <mat-icon matPrefix aria-hidden="false" aria-label="search icon">search</mat-icon>
+        <input matInput placeholder="Placeholder" autocomplete="off" (keyup)="applyFilter($event)">
+      </mat-form-field>
+    </form>
+    <table mat-table [dataSource]="dataFilter" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre <mat-icon>unfold_more</mat-icon> <br> (cargo) </th>
+          <td mat-cell *matCellDef="let element"> {{element.nameUser}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="age">
+          <th style="width: 111px;" mat-header-cell *matHeaderCellDef> Edad <mat-icon>unfold_more</mat-icon></th>
+          <td mat-cell *matCellDef="let element"> {{element.commission}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Fecha de contratación <mat-icon>unfold_more</mat-icon></th>
+          <td mat-cell *matCellDef="let element"> {{element.dateJobs}} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <button [routerLink]="['/editar', element._id]"  mat-mini-fab color="warn" aria-label="Example icon button with a delete icon">
+              <mat-icon>border_color</mat-icon>
+            </button>
+            <button [routerLink]="['/detalle', element._id]"  mat-mini-fab color="warn" aria-label="Example icon button with a delete icon">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button (click)="deleteUser(element._id)" mat-mini-fab color="warn" aria-label="Example icon button with a delete icon">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>

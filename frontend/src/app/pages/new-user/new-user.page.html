@@ -1,0 +1,90 @@
+
+  <mat-card class="example-card">
+    <form action="" [formGroup]="newUser" (ngSubmit)="onSubmitForm()">
+    <mat-card-header>
+        <mat-card-title><h2>NUEVO EMPLEADO</h2></mat-card-title>
+        <mat-card-subtitle><p>Agregar la informacion necesaria para agregar un nuevo empleado.</p></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-grid-list cols="4" rowHeight="40px">
+            <mat-grid-tile>
+                <mat-label>Nombre</mat-label>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <input formControlName="name" autocomplete="off" matInput>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>Área</mat-grid-tile>
+            <mat-grid-tile>
+                <mat-button-toggle-group formControlName="area" name="fontStyle" aria-label="Font Style">
+                <mat-button-toggle value="Administrativa">Administrativa</mat-button-toggle>
+                <mat-button-toggle value="Tecnologia">Tecnología</mat-button-toggle>
+              </mat-button-toggle-group>
+            </mat-grid-tile>
+            <mat-grid-tile><mat-label>Fecha de nacimiento</mat-label></mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <input formControlName="birthday" autocomplete="off" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile><mat-label>Cargo</mat-label></mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <mat-select *ngIf="newUser.get('area')?.value === 'Administrativa'" formControlName="position">
+                        <mat-option #templateA *ngFor="let data of positionTypeA" [value]="data">{{data}}</mat-option>
+                    </mat-select>
+                    <mat-select *ngIf="newUser.get('area')?.value === 'Tecnologia'" formControlName="position">
+                      <mat-option #templateA *ngFor="let data of positionTypeB" [value]="data">{{data}}</mat-option>
+                  </mat-select>
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile><mat-label>País</mat-label></mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <mat-select formControlName="country">
+                      <mat-option *ngFor="let country of countrysList" [value]="country.name">{{country.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <mat-label *ngIf="newUser.get('position')?.value === 'Fundador y CEO'">Comisión</mat-label>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field *ngIf="newUser.get('position')?.value === 'Fundador y CEO'" appearance="fill">
+                  <input formControlName="commission" autocomplete="off" matInput type="number" placeholder="Ex. 12"  min="10">
+                  <span matSuffix>px</span>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-label>Nombre de usuario</mat-label>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <input formControlName="nameUser" autocomplete="off" matInput>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>3</mat-grid-tile>
+            <mat-grid-tile>5</mat-grid-tile>
+            <mat-grid-tile><mat-label>Fecha de contratación</mat-label></mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <input formControlName="dateJobs" autocomplete="off" matInput [matDatepicker]="pickerr">
+                    <mat-datepicker-toggle matSuffix [for]="pickerr"></mat-datepicker-toggle>
+                    <mat-datepicker [startAt]="newUser.get('dateJobs')?.value" #pickerr></mat-datepicker>
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>3</mat-grid-tile>
+            <mat-grid-tile>5</mat-grid-tile>
+            <mat-grid-tile><mat-label>Estado</mat-label></mat-grid-tile>
+            <mat-grid-tile><mat-slide-toggle formControlName="state" checked="formControlName.value" color="primary"></mat-slide-toggle></mat-grid-tile>
+            <mat-grid-tile>3</mat-grid-tile>
+            <mat-grid-tile>5</mat-grid-tile>
+          </mat-grid-list>
+          <button (click)="redirecTo()" mat-raised-button color="warn">Atrás</button>
+          <button [disabled]="!newUser.valid" type="submit" class="button-save" mat-raised-button color="primary">Guardar</button>
+    </mat-card-content>
+  </form>
+</mat-card>
